@@ -1,6 +1,5 @@
 import KineticHeading from "./KineticHeading";
-
-const emailHref = "mailto:info@solutionforge.dev?subject=SolutionForge%20project%20brief&body=Project%20type%20%28website%2C%20outreach%2C%20or%20automation%29%3A%0A%0ACurrent%20situation%3A%0A%0AWhat%20better%20looks%20like%3A%0A";
+import BriefForm from "./BriefForm";
 
 export default function Contact() {
   return (
@@ -14,10 +13,7 @@ export default function Contact() {
             workflow. Tell us what is getting in the way today. That is enough for a
             useful first conversation.
           </p>
-          <a className="button button-light" href={emailHref}>
-            <span className="button-label">Start the brief</span>
-            <span className="button-icon" aria-hidden="true">↗</span>
-          </a>
+          <BriefForm />
           <a className="contact-email" href="mailto:info@solutionforge.dev">info@solutionforge.dev</a>
         </div>
 

@@ -38,6 +38,7 @@ export default function SlowScrollLink({ children, className, href, onClick }: S
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       window.scrollTo(0, targetY);
       window.history.pushState(null, "", href);
+      window.dispatchEvent(new CustomEvent("sf:navigated-to", { detail: href }));
       return;
     }
 
@@ -58,6 +59,7 @@ export default function SlowScrollLink({ children, className, href, onClick }: S
       } else {
         activeScrollAnimation = null;
         window.history.pushState(null, "", href);
+        window.dispatchEvent(new CustomEvent("sf:navigated-to", { detail: href }));
       }
     };
 

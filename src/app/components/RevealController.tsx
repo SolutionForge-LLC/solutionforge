@@ -20,6 +20,7 @@ const revealSelectors = [
   ".done-panel",
   ".contact-section",
   ".contact-copy",
+  ".brief-form",
   ".brief-panel",
   ".site-footer",
   ".kinetic-heading",

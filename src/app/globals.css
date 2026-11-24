@@ -1749,6 +1749,172 @@ select {
   text-transform: uppercase;
 }
 
+/* Brief form */
+
+.brief-form {
+  margin-top: 2.5rem;
+}
+
+.brief-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.brief-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.brief-field label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 253, 248, 0.78);
+}
+
+.brief-optional {
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  opacity: 0.7;
+}
+
+.brief-field input,
+.brief-field select,
+.brief-field textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--ink);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.92rem;
+}
+
+.brief-field input::placeholder,
+.brief-field textarea::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.75;
+}
+
+.brief-field textarea {
+  resize: vertical;
+  min-height: 5.5rem;
+  line-height: 1.55;
+}
+
+.brief-field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+    linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.1rem) 50%,
+    calc(100% - 0.75rem) 50%;
+  background-repeat: no-repeat;
+  background-size: 0.35rem 0.35rem;
+  padding-right: 2.25rem;
+}
+
+.brief-field input:focus-visible,
+.brief-field select:focus-visible,
+.brief-field textarea:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.brief-radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.brief-form > .brief-field:not(.brief-radios) {
+  margin-top: 1.25rem;
+}
+
+.brief-radios legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 0.45rem;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 253, 248, 0.78);
+}
+
+.brief-radio {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--white);
+  font-size: 0.92rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.brief-radio input {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.brief-radio input:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.brief-honeypot {
+  display: none;
+}
+
+.brief-form .brief-submit {
+  margin-top: 1.75rem;
+}
+
+.brief-submit:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
+
+.brief-form-status {
+  margin: 1.25rem 0 0;
+  color: var(--white);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.brief-form-status.is-success {
+  color: var(--signal);
+}
+
+.brief-form-status.is-error {
+  font-weight: 600;
+}
+
+.brief-form-status a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.brief-form-status.is-success a {
+  color: var(--signal);
+}
+
 /* Footer */
 
 .site-footer {
@@ -3196,6 +3362,10 @@ select {
 
   .brief-panel {
     box-shadow: 8px 8px 0 var(--ink);
+  }
+
+  .brief-form-grid {
+    grid-template-columns: 1fr;
   }
 
   .footer-main {
