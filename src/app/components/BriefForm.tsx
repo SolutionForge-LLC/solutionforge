@@ -20,6 +20,34 @@ const projectStatuses = [
 
 type Status = "idle" | "sending" | "success" | "error";
 
+function formatPhoneInput(value: string): string {
+  const hasPlus = value.trimStart().startsWith("+");
+  const digits = value.replace(/\D/g, "").slice(0, 15);
+  if (!digits) return hasPlus ? "+" : "";
+
+  const isNanp =
+    digits.length <= 10 || (digits.length === 11 && digits.startsWith("1"));
+
+  if (isNanp) {
+    const national = digits.length === 11 ? digits.slice(1) : digits;
+    const prefix = digits.length === 11 ? "+1 " : "";
+    const area = national.slice(0, 3);
+    const mid = national.slice(3, 6);
+    const line = national.slice(6, 10);
+
+    if (national.length <= 3) return `${prefix}(${national}`;
+    if (national.length <= 6) return `${prefix}(${area}) ${mid}`;
+    return `${prefix}(${area}) ${mid}-${line}`;
+  }
+
+  return hasPlus ? `+${digits}` : digits;
+}
+
+function isPhoneValid(value: string): boolean {
+  const digits = value.replace(/\D/g, "");
+  return digits.length === 0 || (digits.length >= 10 && digits.length <= 15);
+}
+
 export default function BriefForm() {
   const [status, setStatus] = useState<Status>("idle");
   const nameRef = useRef<HTMLInputElement>(null);
@@ -52,6 +80,14 @@ export default function BriefForm() {
     const company = String(data.get("company") ?? "").trim();
     const situation = String(data.get("situation") ?? "").trim();
     const outcome = String(data.get("outcome") ?? "").trim();
+
+    const phoneInput = form.elements.namedItem("phone");
+    if (phoneInput instanceof HTMLInputElement && !isPhoneValid(phoneInput.value)) {
+      phoneInput.setCustomValidity("Enter a valid phone number (10–15 digits).");
+      phoneInput.reportValidity();
+      return;
+    }
+    if (phoneInput instanceof HTMLInputElement) phoneInput.setCustomValidity("");
 
     setStatus("sending");
 
@@ -95,11 +131,29 @@ export default function BriefForm() {
         </div>
         <div className="brief-field">
           <label htmlFor="brief-email">Email</label>
-          <input id="brief-email" name="email" type="email" required autoComplete="email" />
+          <input
+            id="brief-email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+            title="Enter a valid email address, e.g. name@company.com"
+          />
         </div>
         <div className="brief-field">
           <label htmlFor="brief-phone">Phone <span className="brief-optional">optional</span></label>
-          <input id="brief-phone" name="phone" type="tel" autoComplete="tel" />
+          <input
+            id="brief-phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            inputMode="tel"
+            placeholder="(555) 123-4567"
+            onChange={(event) => {
+              event.currentTarget.value = formatPhoneInput(event.currentTarget.value);
+            }}
+          />
         </div>
         <div className="brief-field">
           <label htmlFor="brief-company">Company <span className="brief-optional">optional</span></label>
