@@ -1761,6 +1761,10 @@ select {
   gap: 1.25rem;
 }
 
+.brief-form-grid .brief-field--full {
+  grid-column: 1 / -1;
+}
+
 .brief-field {
   display: flex;
   min-width: 0;
@@ -1829,7 +1833,7 @@ select {
 
 .brief-radios {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.5rem 1.75rem;
   margin: 0.75rem 0 0;
   padding: 0;

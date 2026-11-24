@@ -48,6 +48,7 @@ export default function BriefForm() {
         ?.label ?? "";
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
+    const phone = String(data.get("phone") ?? "").trim();
     const company = String(data.get("company") ?? "").trim();
     const situation = String(data.get("situation") ?? "").trim();
     const outcome = String(data.get("outcome") ?? "").trim();
@@ -63,11 +64,12 @@ export default function BriefForm() {
           subject: `SolutionForge project brief — ${projectType}`,
           from_name: name,
           email,
+          phone: phone || "—",
           project_type: projectType,
-          project_status: projectStatus,
+          project_status: projectStatus || "—",
           company: company || "—",
-          situation,
-          outcome,
+          situation: situation || "—",
+          outcome: outcome || "—",
           botcheck: data.get("botcheck") ?? "",
         }),
       });
@@ -96,10 +98,14 @@ export default function BriefForm() {
           <input id="brief-email" name="email" type="email" required autoComplete="email" />
         </div>
         <div className="brief-field">
+          <label htmlFor="brief-phone">Phone <span className="brief-optional">optional</span></label>
+          <input id="brief-phone" name="phone" type="tel" autoComplete="tel" />
+        </div>
+        <div className="brief-field">
           <label htmlFor="brief-company">Company <span className="brief-optional">optional</span></label>
           <input id="brief-company" name="company" type="text" autoComplete="organization" />
         </div>
-        <div className="brief-field">
+        <div className="brief-field brief-field--full">
           <label htmlFor="brief-project-type">Project type</label>
           <select id="brief-project-type" name="projectType" required defaultValue="">
             <option value="" disabled>
@@ -115,33 +121,31 @@ export default function BriefForm() {
       </div>
 
       <fieldset className="brief-field brief-radios">
-        <legend>New or existing project?</legend>
+        <legend>Is this a new or existing project? <span className="brief-optional">optional</span></legend>
         {projectStatuses.map((item) => (
           <label key={item.value} className="brief-radio">
-            <input type="radio" name="projectStatus" value={item.value} required />
+            <input type="radio" name="projectStatus" value={item.value} />
             {item.label}
           </label>
         ))}
       </fieldset>
 
       <div className="brief-field">
-        <label htmlFor="brief-situation">Current situation</label>
+        <label htmlFor="brief-situation">Current situation <span className="brief-optional">optional</span></label>
         <textarea
           id="brief-situation"
           name="situation"
           rows={3}
-          required
           placeholder="What exists today, and what's getting in the way?"
         />
       </div>
 
       <div className="brief-field">
-        <label htmlFor="brief-outcome">What better looks like</label>
+        <label htmlFor="brief-outcome">What better looks like <span className="brief-optional">optional</span></label>
         <textarea
           id="brief-outcome"
           name="outcome"
           rows={3}
-          required
           placeholder="What observable change would make this project worth doing?"
         />
       </div>
